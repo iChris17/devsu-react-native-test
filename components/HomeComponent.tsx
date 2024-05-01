@@ -1,37 +1,16 @@
-import useGetFinancialProducts, {
-  Product,
-} from "@/hooks/useGetFinancialProducts";
 import React from "react";
-import {
-  SafeAreaView,
-  Text,
-  TextInput,
-  View,
-  StyleSheet,
-  FlatList,
-  ListRenderItemInfo,
-} from "react-native";
-import ListItem from "./ListItem";
+import { SafeAreaView, TextInput, View, StyleSheet } from "react-native";
+import ProductList from "./ProductList";
+import AddButton from "./AddButton";
 
 const Home = () => {
-  const { data } = useGetFinancialProducts();
-  
-  const renderItem = (item: ListRenderItemInfo<Product>) => {
-    return (
-      <ListItem id={item.item.id} name={item.item.name}/>
-    );
-  };
-
   return (
     <SafeAreaView style={styles.container}>
       <View>
         <TextInput style={styles.input} placeholder="Search..."></TextInput>
-        <FlatList
-          data={data}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.id}
-        />
+        <ProductList />
       </View>
+      <AddButton />
     </SafeAreaView>
   );
 };
@@ -39,8 +18,14 @@ const Home = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    flexGrow: 1,
+    display: "flex",
     backgroundColor: "white",
-    paddingHorizontal: 10
+    padding: 10,
+    justifyContent: "space-between",
+    flexDirection: "column",
+    borderColor: "red",
+    borderWidth: 1,
   },
   input: {
     height: 40,
