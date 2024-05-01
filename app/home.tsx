@@ -1,10 +1,11 @@
 import React from 'react'
+import HomeComponent from "../components/HomeComponent"
 import { View } from 'react-native'
 
-const home = () => {
+const Home = () => {
   return (
-    <View></View>
+    <HomeComponent></HomeComponent>
   )
 }
 
-export default home
+export default Home

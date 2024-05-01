@@ -1,10 +1,9 @@
-import React from 'react'
-import { View } from 'react-native'
+import Details from "@/components/Details";
+import React from "react";
+import { View } from "react-native";
 
-const Details = () => {
-  return (
-    <View></View>
-  )
-}
+const DetailScreen = () => {
+  return <Details />;
+};
 
-export default Details
+export default DetailScreen;
