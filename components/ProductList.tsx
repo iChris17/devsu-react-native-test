@@ -3,6 +3,7 @@ import useGetFinancialProducts, {
 } from "@/hooks/useGetFinancialProducts";
 import React, { useCallback, useEffect, useState } from "react";
 import {
+  ActivityIndicator,
   FlatList,
   ListRenderItemInfo,
   StyleSheet,
@@ -13,7 +14,7 @@ import ListItem from "./ListItem";
 
 const ProductList = () => {
   const [searchQuery, setSearchQuery] = useState("");
-  const { data } = useGetFinancialProducts();
+  const { data, isLoading } = useGetFinancialProducts();
   const [filteredData, setfilteredData] = useState<Product[]>([]);
 
   useEffect(() => {
@@ -42,6 +43,10 @@ const ProductList = () => {
   const renderItem = (item: ListRenderItemInfo<Product>) => {
     return <ListItem id={item.item.id} name={item.item.name} />;
   };
+
+  if (isLoading) {
+    return <ActivityIndicator size={"large"} />;
+  }
 
   return (
     <View>
