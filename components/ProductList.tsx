@@ -27,7 +27,7 @@ const ProductList = () => {
   const handleFilter = useCallback(() => {
     if (searchQuery !== "") {
       const filter = data.filter((p) => {
-        return p.name.includes(searchQuery);
+        return p.name.toLowerCase().includes(searchQuery.toLowerCase());
       });
       setfilteredData(filter);
     } else {
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     paddingVertical: 30,
-    marginBottom: 20
+    marginBottom: 20,
   },
 });
 

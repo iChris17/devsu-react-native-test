@@ -48,12 +48,6 @@ const Details: FC<Props> = ({ id }) => {
       </View>
       <View>
         <Button
-          text="Editar"
-          backgroundColor="#d1d1d1"
-          color="black"
-          onPress={() => {}}
-        />
-        <Button
           text="Eliminar"
           backgroundColor="red"
           color="white"

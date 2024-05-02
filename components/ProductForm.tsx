@@ -1,10 +1,11 @@
 import { Product } from "@/hooks/useGetFinancialProducts";
 import { Formik } from "formik";
-import React from "react";
+import React, { useEffect } from "react";
 import { ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
 import * as yup from "yup";
 import Button from "./Button";
 import { useRouter } from "expo-router";
+import usePostProducts from "@/hooks/usePostProducts";
 
 const schema = yup.object<Product>().shape({
   id: yup
@@ -28,6 +29,7 @@ const schema = yup.object<Product>().shape({
 
 const ProductForm = () => {
   const router = useRouter();
+  const { postData, isSuccess } = usePostProducts();
 
   const initialValues: Product = {
     id: "",
@@ -38,8 +40,14 @@ const ProductForm = () => {
     date_revision: "",
   };
 
-  const handleSubmit = () => {
-    router.push("/home");
+  useEffect(() => {
+    if (isSuccess) {
+      router.push("/home");
+    }
+  }, [isSuccess]);
+
+  const handleSubmit = (values: Product) => {
+    postData({ ...values, date_revision: values.date_release });
   };
 
   return (
@@ -48,7 +56,15 @@ const ProductForm = () => {
       onSubmit={handleSubmit}
       validationSchema={schema}
     >
-      {({ handleChange, handleBlur, handleSubmit, resetForm, values }) => (
+      {({
+        handleChange,
+        handleBlur,
+        handleSubmit,
+        resetForm,
+        values,
+        errors,
+        touched,
+      }) => (
         <ScrollView>
           <Text style={styles.title}>FORMULARIO DE REGISTRO</Text>
           <View style={styles.field}>
@@ -59,6 +75,9 @@ const ProductForm = () => {
               onBlur={handleBlur("id")}
               value={values.id}
             />
+            {errors.id && touched.id && (
+              <Text style={styles.error}>{errors.id}</Text>
+            )}
           </View>
           <View style={styles.field}>
             <Text style={styles.label}>Nombre</Text>
@@ -68,6 +87,9 @@ const ProductForm = () => {
               onBlur={handleBlur("name")}
               value={values.name}
             />
+            {errors.name && touched.name && (
+              <Text style={styles.error}>{errors.name}</Text>
+            )}
           </View>
           <View style={styles.field}>
             <Text style={styles.label}>Descripción</Text>
@@ -77,6 +99,9 @@ const ProductForm = () => {
               onBlur={handleBlur("description")}
               value={values.description}
             />
+            {errors.description && touched.description && (
+              <Text style={styles.error}>{errors.description}</Text>
+            )}
           </View>
           <View style={styles.field}>
             <Text style={styles.label}>Logo</Text>
@@ -86,6 +111,9 @@ const ProductForm = () => {
               onBlur={handleBlur("logo")}
               value={values.logo}
             />
+            {errors.logo && touched.logo && (
+              <Text style={styles.error}>{errors.logo}</Text>
+            )}
           </View>
           <View style={styles.field}>
             <Text style={styles.label}>Fecha Liberación</Text>
@@ -95,6 +123,9 @@ const ProductForm = () => {
               onBlur={handleBlur("date_release")}
               value={values.date_release}
             />
+            {errors.date_release && touched.date_release && (
+              <Text style={styles.error}>{errors.date_release}</Text>
+            )}
           </View>
           <View style={styles.field}>
             <Text style={styles.label}>Fecha Revisión</Text>
@@ -123,14 +154,13 @@ const ProductForm = () => {
 const styles = StyleSheet.create({
   input: {
     height: 40,
-    marginBottom: 12,
     borderWidth: 1,
     borderRadius: 5,
     padding: 10,
     borderColor: "#D1D1D1",
   },
   field: {
-    marginBottom: 5,
+    marginBottom: 15,
   },
   label: {
     fontWeight: "bold",
@@ -141,9 +171,12 @@ const styles = StyleSheet.create({
     fontSize: 22,
     marginVertical: 20,
   },
-  buttons:{
-    marginTop: 20
-  }
+  buttons: {
+    marginTop: 20,
+  },
+  error: {
+    color: "red",
+  },
 });
 
 export default ProductForm;
