@@ -1,13 +1,33 @@
 import useGetProductById from "@/hooks/useGetProductById";
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { Image, SafeAreaView, StyleSheet, Text, View } from "react-native";
 import Button from "./Button";
+import BottomSheet from "./BottomSheet";
+import useDeleteProducts from "@/hooks/useDeleteProduct";
+import { useRouter } from "expo-router";
 
 interface Props {
   id: string;
 }
 const Details: FC<Props> = ({ id }) => {
   const { product } = useGetProductById({ id });
+  const { deleteData, isSuccess } = useDeleteProducts();
+  const router = useRouter();
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    if (isSuccess) {
+      router.push("/home");
+    }
+  }, [isSuccess]);
+
+  const handleDelete = () => {
+    deleteData(id);
+  };
+
+  const toggleBottomSheet = () => {
+    setIsVisible(!isVisible);
+  };
 
   const date_release = new Date(product?.date_release || "");
   const date_revision = new Date(product?.date_revision || "");
@@ -15,6 +35,12 @@ const Details: FC<Props> = ({ id }) => {
   return (
     <SafeAreaView style={styles.container}>
       <View>
+        <BottomSheet
+          isVisible={isVisible}
+          onClose={toggleBottomSheet}
+          onDelete={handleDelete}
+          name={product?.name}
+        />
         <View style={styles.header}>
           <Text style={styles.title}>{`ID: ${id}`}</Text>
           <Text style={styles.label}>Información extra</Text>
@@ -51,7 +77,7 @@ const Details: FC<Props> = ({ id }) => {
           text="Eliminar"
           backgroundColor="red"
           color="white"
-          onPress={() => {}}
+          onPress={toggleBottomSheet}
         />
       </View>
     </SafeAreaView>
@@ -91,7 +117,7 @@ const styles = StyleSheet.create({
   },
   header: {
     marginBottom: 50,
-    marginTop: 20
+    marginTop: 20,
   },
 });
 
