@@ -1,4 +1,3 @@
-import { Product } from "@/hooks/useGetFinancialProducts";
 import { useRouter } from "expo-router";
 import React, { FC } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
@@ -16,7 +15,7 @@ const ListItem: FC<Props> = ({ id, name }) => {
   };
 
   return (
-    <TouchableOpacity onPress={handleOnPress}>
+    <TouchableOpacity onPress={handleOnPress} testID="list-item">
       <View style={styles.container}>
         <View>
           <Text style={styles.title}>{name}</Text>

@@ -13,6 +13,7 @@ const Button: FC<Props> = ({ text, onPress, backgroundColor, color }) => {
     <TouchableOpacity
       style={{ backgroundColor, ...styles.container }}
       onPress={onPress}
+      testID="button"
     >
       <Text style={{ color, ...styles.text }}>{text}</Text>
     </TouchableOpacity>

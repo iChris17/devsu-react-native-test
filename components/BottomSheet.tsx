@@ -21,7 +21,7 @@ const BottomSheet = ({ isVisible, onClose, name, onDelete }: Props) => {
       style={styles.container}
     >
       <View style={styles.content}>
-        <TouchableOpacity onPress={onClose}>
+        <TouchableOpacity testID="modal-backdrop" onPress={onClose}>
           <Text style={{ color: "gray" }}>X</Text>
         </TouchableOpacity>
       </View>

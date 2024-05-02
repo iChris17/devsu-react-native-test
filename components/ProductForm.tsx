@@ -73,6 +73,7 @@ const ProductForm = () => {
               style={styles.input}
               onChangeText={handleChange("id")}
               onBlur={handleBlur("id")}
+              placeholder="ID"
               value={values.id}
             />
             {errors.id && touched.id && (
@@ -85,6 +86,7 @@ const ProductForm = () => {
               style={styles.input}
               onChangeText={handleChange("name")}
               onBlur={handleBlur("name")}
+              placeholder="Nombre"
               value={values.name}
             />
             {errors.name && touched.name && (
@@ -97,6 +99,7 @@ const ProductForm = () => {
               style={styles.input}
               onChangeText={handleChange("description")}
               onBlur={handleBlur("description")}
+              placeholder="Descripción"
               value={values.description}
             />
             {errors.description && touched.description && (
@@ -109,6 +112,7 @@ const ProductForm = () => {
               style={styles.input}
               onChangeText={handleChange("logo")}
               onBlur={handleBlur("logo")}
+              placeholder="Logo"
               value={values.logo}
             />
             {errors.logo && touched.logo && (
@@ -121,6 +125,7 @@ const ProductForm = () => {
               style={styles.input}
               onChangeText={handleChange("date_release")}
               onBlur={handleBlur("date_release")}
+              placeholder="Fecha Liberación"
               value={values.date_release}
             />
             {errors.date_release && touched.date_release && (
@@ -129,7 +134,11 @@ const ProductForm = () => {
           </View>
           <View style={styles.field}>
             <Text style={styles.label}>Fecha Revisión</Text>
-            <TextInput style={styles.input} value={values.date_release} />
+            <TextInput
+              style={styles.input}
+              placeholder="Fecha Revisión"
+              value={values.date_release}
+            />
           </View>
           <View style={styles.buttons}>
             <Button

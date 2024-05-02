@@ -1,7 +1,7 @@
 import React from "react";
 import { SafeAreaView, View, StyleSheet } from "react-native";
-import ProductList from "./ProductList";
-import AddButton from "./AddButton";
+import ProductList from "../components/ProductList";
+import AddButton from "../components/AddButton";
 
 const Home = () => {
   return (

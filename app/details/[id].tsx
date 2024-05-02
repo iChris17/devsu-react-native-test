@@ -1,4 +1,4 @@
-import Details from "@/components/Details";
+import Details from "@/views/Details";
 import { useLocalSearchParams } from "expo-router";
 import React from "react";
 

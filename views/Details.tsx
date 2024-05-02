@@ -1,8 +1,8 @@
 import useGetProductById from "@/hooks/useGetProductById";
 import React, { FC, useEffect, useState } from "react";
 import { Image, SafeAreaView, StyleSheet, Text, View } from "react-native";
-import Button from "./Button";
-import BottomSheet from "./BottomSheet";
+import Button from "../components/Button";
+import BottomSheet from "../components/BottomSheet";
 import useDeleteProducts from "@/hooks/useDeleteProduct";
 import { useRouter } from "expo-router";
 

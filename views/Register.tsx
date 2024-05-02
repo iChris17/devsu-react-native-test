@@ -1,6 +1,6 @@
 import React from "react";
 import { SafeAreaView, StyleSheet } from "react-native";
-import ProductForm from "./ProductForm";
+import ProductForm from "../components/ProductForm";
 
 const Register = () => {
   return (

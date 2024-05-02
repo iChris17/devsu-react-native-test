@@ -1,4 +1,4 @@
-import Register from '@/components/Register'
+import Register from '@/views/Register'
 import React from 'react'
 import { View } from 'react-native'
 
