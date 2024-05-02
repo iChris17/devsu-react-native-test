@@ -1,12 +1,24 @@
-import React from 'react'
-import { SafeAreaView, Text } from 'react-native'
+import React from "react";
+import { SafeAreaView, StyleSheet } from "react-native";
+import ProductForm from "./ProductForm";
 
 const Register = () => {
   return (
-    <SafeAreaView>
-        <Text>Register</Text>
+    <SafeAreaView style={styles.container}>
+      <ProductForm />
     </SafeAreaView>
-  )
-}
+  );
+};
 
-export default Register
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexGrow: 1,
+    display: "flex",
+    backgroundColor: "white",
+    padding: 10,
+    flexDirection: "column",
+  },
+});
+
+export default Register;
