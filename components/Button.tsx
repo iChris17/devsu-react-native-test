@@ -22,10 +22,11 @@ const Button: FC<Props> = ({ text, onPress, backgroundColor, color }) => {
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    padding: 10,
+    padding: 15,
   },
   text: {
     textAlign: "center",
+    fontWeight: "bold",
   },
 });
 

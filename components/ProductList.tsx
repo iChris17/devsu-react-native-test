@@ -45,12 +45,14 @@ const ProductList = () => {
 
   return (
     <View>
-      <TextInput
-        style={styles.input}
-        placeholder="Buscar..."
-        value={searchQuery}
-        onChangeText={handleOnChange}
-      ></TextInput>
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.input}
+          placeholder="Buscar..."
+          value={searchQuery}
+          onChangeText={handleOnChange}
+        ></TextInput>
+      </View>
       <FlatList
         data={filteredData}
         renderItem={renderItem}
@@ -69,6 +71,10 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     padding: 10,
     borderColor: "#D1D1D1",
+  },
+  inputContainer: {
+    paddingVertical: 30,
+    marginBottom: 20
   },
 });
 

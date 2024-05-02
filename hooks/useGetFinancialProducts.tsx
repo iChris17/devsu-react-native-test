@@ -36,7 +36,7 @@ const useGetFinancialProducts = () => {
       setError(true);
       console.log(error);
     } finally {
-      setIsLoading(false);
+      setIsLoading(false); 
     }
   };
 

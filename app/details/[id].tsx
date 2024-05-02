@@ -1,9 +1,10 @@
 import Details from "@/components/Details";
+import { useLocalSearchParams } from "expo-router";
 import React from "react";
-import { View } from "react-native";
 
-const DetailScreen = () => {
-  return <Details />;
+const DetailsScreen = () => {
+  const { id } = useLocalSearchParams();
+  return <Details id={id.toString()} />;
 };
 
-export default DetailScreen;
+export default DetailsScreen;
