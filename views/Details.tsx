@@ -1,16 +1,14 @@
-import useGetProductById from "@/hooks/useGetProductById";
 import React, { FC, useEffect, useState } from "react";
 import { Image, SafeAreaView, StyleSheet, Text, View } from "react-native";
 import Button from "../components/Button";
 import BottomSheet from "../components/BottomSheet";
 import useDeleteProducts from "@/hooks/useDeleteProduct";
 import { useRouter } from "expo-router";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store";
 
-interface Props {
-  id: string;
-}
-const Details: FC<Props> = ({ id }) => {
-  const { product } = useGetProductById({ id });
+const Details: FC = () => {
+  const product = useSelector((state: RootState) => state.product);
   const { deleteData, isSuccess } = useDeleteProducts();
   const router = useRouter();
   const [isVisible, setIsVisible] = useState(false);
@@ -22,15 +20,15 @@ const Details: FC<Props> = ({ id }) => {
   }, [isSuccess]);
 
   const handleDelete = () => {
-    deleteData(id);
+    deleteData(product.id);
   };
 
   const toggleBottomSheet = () => {
     setIsVisible(!isVisible);
   };
 
-  const date_release = new Date(product?.date_release || "");
-  const date_revision = new Date(product?.date_revision || "");
+  const date_release = new Date(product.date_release);
+  const date_revision = new Date(product.date_revision);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -42,24 +40,24 @@ const Details: FC<Props> = ({ id }) => {
           name={product?.name}
         />
         <View style={styles.header}>
-          <Text style={styles.title}>{`ID: ${id}`}</Text>
+          <Text style={styles.title}>{`ID: ${product.id}`}</Text>
           <Text style={styles.label}>Información extra</Text>
         </View>
 
         <View style={styles.row}>
           <Text style={styles.label}>Nombre</Text>
-          <Text style={styles.text}>{product?.name}</Text>
+          <Text style={styles.text}>{product.name}</Text>
         </View>
         <View style={styles.row}>
           <Text style={styles.label}>Descripción</Text>
-          <Text style={styles.text}>{product?.description}</Text>
+          <Text style={styles.text}>{product.description}</Text>
         </View>
         <View style={styles.row}>
           <Text style={styles.label}>Logo</Text>
           <Image
             style={styles.image}
             source={{
-              uri: product?.logo,
+              uri: product.logo,
             }}
           />
         </View>

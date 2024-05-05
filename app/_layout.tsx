@@ -58,7 +58,7 @@ function RootLayoutNav() {
     >
       <Stack.Screen name="home" />
       <Stack.Screen name="create" />
-      <Stack.Screen name="details/[id]" />
+      <Stack.Screen name="details" />
       <Stack.Screen name="edit" />
     </Stack>
   );

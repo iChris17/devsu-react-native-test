@@ -1,25 +1,28 @@
+import { Product } from "@/hooks/useGetFinancialProducts";
+import { AppDistpatch } from "@/store";
+import { setProduct } from "@/store/productSlice";
 import { useRouter } from "expo-router";
 import React, { FC } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { useDispatch } from "react-redux";
 
-interface Props {
-  id: string;
-  name: string;
-}
-
-const ListItem: FC<Props> = ({ id, name }) => {
+const ListItem: FC<Product> = (props) => {
   const router = useRouter();
+  const dispatch = useDispatch<AppDistpatch>();
 
   const handleOnPress = () => {
-    router.push(`/details/${id}`);
+    dispatch(
+      setProduct(props)
+    );
+    router.push(`/details`);
   };
 
   return (
     <TouchableOpacity onPress={handleOnPress} testID="list-item">
       <View style={styles.container}>
         <View>
-          <Text style={styles.title}>{name}</Text>
-          <Text style={styles.label}>ID: {id}</Text>
+          <Text style={styles.title}>{props.name}</Text>
+          <Text style={styles.label}>ID: {props.id}</Text>
         </View>
         <View>
           <Text>{">"}</Text>
@@ -46,7 +49,7 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 12,
-    color: "gray"
+    color: "gray",
   },
 });
 

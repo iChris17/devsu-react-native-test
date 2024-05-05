@@ -41,7 +41,18 @@ const ProductList = () => {
   }, [searchQuery, handleFilter]);
 
   const renderItem = (item: ListRenderItemInfo<Product>) => {
-    return <ListItem id={item.item.id} name={item.item.name} />;
+    const { id, name, description, date_release, date_revision, logo } =
+      item.item;
+    return (
+      <ListItem
+        id={id}
+        name={name}
+        date_release={date_release}
+        date_revision={date_revision}
+        logo={logo}
+        description={description}
+      />
+    );
   };
 
   if (isLoading) {

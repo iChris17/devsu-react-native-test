@@ -14,11 +14,11 @@ const productSlice = createSlice({
   name: "product",
   initialState,
   reducers: {
-    setProduct: (state, action) => {
-      state = action.payload;
+    setProduct: (_state, action) => {
+      return action.payload;
     },
-    resetProduct: (state) => {
-      state = initialState;
+    resetProduct: () => {
+      return initialState;
     },
   },
 });
