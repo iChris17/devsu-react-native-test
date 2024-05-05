@@ -78,13 +78,13 @@ const Details: FC = () => {
         <Button
           text="Editar"
           backgroundColor="#d1d1d1"
-          color="black"
+          color="#20226C"
           marginBottom={5}
           onPress={handleEditButton}
         />
         <Button
           text="Eliminar"
-          backgroundColor="red"
+          backgroundColor="#CC0000"
           color="white"
           onPress={toggleBottomSheet}
         />

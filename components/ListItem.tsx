@@ -11,9 +11,7 @@ const ListItem: FC<Product> = (props) => {
   const dispatch = useDispatch<AppDistpatch>();
 
   const handleOnPress = () => {
-    dispatch(
-      setProduct(props)
-    );
+    dispatch(setProduct(props));
     router.push(`/details`);
   };
 
@@ -25,7 +23,7 @@ const ListItem: FC<Product> = (props) => {
           <Text style={styles.label}>ID: {props.id}</Text>
         </View>
         <View>
-          <Text>{">"}</Text>
+          <Text style={styles.arrow}>{">"}</Text>
         </View>
       </View>
     </TouchableOpacity>
@@ -40,8 +38,8 @@ const styles = StyleSheet.create({
     borderColor: "#D1D1D1",
     justifyContent: "space-between",
     flexDirection: "row",
-    paddingHorizontal: 10,
-    paddingVertical: 5,
+    paddingHorizontal: 15,
+    paddingVertical: 8,
     alignItems: "center",
   },
   title: {
@@ -49,6 +47,10 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 12,
+    color: "gray",
+  },
+  arrow: {
+    fontSize: 16,
     color: "gray",
   },
 });

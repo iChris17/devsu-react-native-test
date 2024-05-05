@@ -167,15 +167,15 @@ const ProductForm: FC<Props> = ({ isEditing = false }) => {
           <View style={styles.buttons}>
             <Button
               text="Enviar"
-              backgroundColor="yellow"
-              color="black"
+              backgroundColor="#F9E003"
+              color="#20226C"
               onPress={handleSubmit}
               marginBottom={5}
             />
             <Button
               text="Reiniciar"
               backgroundColor="#d1d1d1"
-              color="black"
+              color="#20226C"
               onPress={resetForm}
             />
           </View>

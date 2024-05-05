@@ -33,14 +33,14 @@ const BottomSheet = ({ isVisible, onClose, name, onDelete }: Props) => {
       <View style={styles.content}>
         <Button
           text="Confirmar"
-          backgroundColor="yellow"
-          color="black"
+          backgroundColor="#F9E003"
+          color="#20226C"
           onPress={onDelete}
         />
         <Button
           text="Cancelar"
           backgroundColor="#d1d1d1"
-          color="black"
+          color="#20226C"
           onPress={onClose}
         />
       </View>

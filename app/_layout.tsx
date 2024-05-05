@@ -52,8 +52,10 @@ function RootLayoutNav() {
       screenOptions={{
         headerTitleStyle: {
           fontWeight: "bold",
+          color: "#20226C",
         },
         headerTitle: "Banco",
+        headerBackVisible: false,
       }}
     >
       <Stack.Screen name="home" />

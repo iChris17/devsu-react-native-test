@@ -82,7 +82,6 @@ const styles = StyleSheet.create({
   input: {
     height: 40,
     marginTop: 12,
-    marginBottom: 12,
     borderWidth: 1,
     borderRadius: 5,
     padding: 10,
@@ -90,7 +89,7 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     paddingVertical: 30,
-    marginBottom: 20,
+    marginBottom: 10,
   },
 });
 

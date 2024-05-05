@@ -14,8 +14,8 @@ const AddButton = () => {
     <View style={styles.container}>
       <Button
         text="Agregar"
-        backgroundColor="yellow"
-        color="black"
+        backgroundColor="#F9E003"
+        color="#20226C"
         onPress={handleAdd}
       />
     </View>
