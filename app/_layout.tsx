@@ -3,6 +3,8 @@ import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
+import { Provider } from "react-redux";
+import { store } from "@/store";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -37,7 +39,11 @@ export default function RootLayout() {
     return null;
   }
 
-  return <RootLayoutNav />;
+  return (
+    <Provider store={store}>
+      <RootLayoutNav />
+    </Provider>
+  );
 }
 
 function RootLayoutNav() {
@@ -50,9 +56,9 @@ function RootLayoutNav() {
         headerTitle: "Banco",
       }}
     >
-      <Stack.Screen name="home"  />
-      <Stack.Screen name="create"  />
-      <Stack.Screen name="details/[id]"  />
+      <Stack.Screen name="home" />
+      <Stack.Screen name="create" />
+      <Stack.Screen name="details/[id]" />
       <Stack.Screen name="edit" />
     </Stack>
   );
