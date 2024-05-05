@@ -1,10 +1,8 @@
-import React from 'react'
-import { View } from 'react-native'
+import EditView from "@/views/EditView";
+import React from "react";
 
 const Edit = () => {
-  return (
-    <View></View>
-  )
-}
+  return <EditView />;
+};
 
-export default Edit
+export default Edit;

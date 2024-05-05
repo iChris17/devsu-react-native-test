@@ -6,12 +6,19 @@ interface Props {
   backgroundColor: string;
   color: string;
   onPress: () => void;
+  marginBottom?: number;
 }
 
-const Button: FC<Props> = ({ text, onPress, backgroundColor, color }) => {
+const Button: FC<Props> = ({
+  text,
+  onPress,
+  backgroundColor,
+  color,
+  marginBottom,
+}) => {
   return (
     <TouchableOpacity
-      style={{ backgroundColor, ...styles.container }}
+      style={{ backgroundColor, marginBottom, ...styles.container }}
       onPress={onPress}
       testID="button"
     >

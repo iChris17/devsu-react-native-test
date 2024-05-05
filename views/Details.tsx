@@ -27,6 +27,10 @@ const Details: FC = () => {
     setIsVisible(!isVisible);
   };
 
+  const handleEditButton = () => {
+    router.push("/edit");
+  };
+
   const date_release = new Date(product.date_release);
   const date_revision = new Date(product.date_revision);
 
@@ -71,6 +75,13 @@ const Details: FC = () => {
         </View>
       </View>
       <View>
+        <Button
+          text="Editar"
+          backgroundColor="#d1d1d1"
+          color="black"
+          marginBottom={5}
+          onPress={handleEditButton}
+        />
         <Button
           text="Eliminar"
           backgroundColor="red"

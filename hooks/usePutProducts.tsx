@@ -3,16 +3,16 @@ import axios from "axios";
 import { BASE_URL } from "@/constants";
 import { Product } from "./useGetFinancialProducts";
 
-const usePostProducts = () => {
+const usePutProducts = () => {
   const [isSuccess, setIsSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
 
-  const postData = async (body: Product) => {
+  const putData = async (body: Product) => {
     setIsLoading(true);
 
     try {
-      const response = await axios.post(`${BASE_URL}/bp/products`, body, {
+      const response = await axios.put(`${BASE_URL}/bp/products`, body, {
         headers: {
           authorId: 1,
         },
@@ -31,7 +31,7 @@ const usePostProducts = () => {
     }
   };
 
-  return { postData, isSuccess, isLoading, error };
+  return { putData, isSuccess, isLoading, error };
 };
 
-export default usePostProducts;
+export default usePutProducts;
