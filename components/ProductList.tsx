@@ -21,9 +21,9 @@ const ProductList = () => {
     setfilteredData(data);
   }, [data]);
 
-  const handleOnChange = (value: string) => {
+  const handleOnChange = useCallback((value: string) => {
     setSearchQuery(value);
-  };
+  }, []);
 
   const handleFilter = useCallback(() => {
     if (searchQuery !== "") {

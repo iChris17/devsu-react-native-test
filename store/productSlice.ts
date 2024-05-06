@@ -6,7 +6,7 @@ const initialState: Product = {
   date_revision: "",
   description: "",
   id: "",
-  logo: "",
+  logo: "image.png",
   name: "",
 };
 

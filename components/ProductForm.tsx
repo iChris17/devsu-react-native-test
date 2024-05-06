@@ -1,6 +1,6 @@
 import { Product } from "@/hooks/useGetFinancialProducts";
 import { Formik } from "formik";
-import React, { FC, useEffect } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
 import * as yup from "yup";
 import Button from "./Button";
@@ -10,10 +10,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDistpatch, RootState } from "@/store";
 import usePutProducts from "@/hooks/usePutProducts";
 import { resetProduct } from "@/store/productSlice";
-
+import { addYears, format, isValid } from "date-fns";
+import useGetIdVerification from "@/hooks/useGetIdVerification";
 interface Props {
   isEditing?: boolean;
 }
+
+const today = new Date();
+today.setHours(0, 0, 0, 0);
 
 const schema = yup.object<Product>().shape({
   id: yup
@@ -29,10 +33,25 @@ const schema = yup.object<Product>().shape({
   description: yup
     .string()
     .required("Este campo es requerido!")
-    .min(10, "nombre debe ser mayor a 5 caracteres")
+    .min(10, "nombre debe ser mayor a 10 caracteres")
     .max(200, "nombre no debe ser mayor a 100 caracteres"),
   logo: yup.string().required("Este campo es requerido!"),
-  date_release: yup.string().required("Este campo es requerido!"),
+  date_release: yup
+    .string()
+    .matches(
+      /^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/,
+      "El formato de fecha es yyyy-mm-dd"
+    )
+    .test(
+      "min",
+      "La fecha debe ser mayor o igual a la fecha actual",
+      (value) => {
+        const date = new Date(value ?? "");
+        date.setHours(0, 0, 0, 0);
+        return date >= today;
+      }
+    )
+    .required("Este campo es requerido!"),
 });
 
 const ProductForm: FC<Props> = ({ isEditing = false }) => {
@@ -41,6 +60,8 @@ const ProductForm: FC<Props> = ({ isEditing = false }) => {
   const dispatch = useDispatch<AppDistpatch>();
   const { postData, isSuccess } = usePostProducts();
   const { putData, isSuccess: isSuccessEditing } = usePutProducts();
+  const { verificateId } = useGetIdVerification();
+  const [showIdVerificationError, setshowIdVerificationError] = useState(false);
 
   const initialValues: Product = isEditing
     ? product
@@ -60,9 +81,13 @@ const ProductForm: FC<Props> = ({ isEditing = false }) => {
     }
   }, [isSuccess, isSuccessEditing]);
 
-  const handleSubmit = (values: Product) => {
+  const handleSubmit = async (values: Product) => {
     if (!isEditing) {
-      postData({ ...values, date_revision: values.date_release });
+      const idExists = await verificateId(values.id);
+      setshowIdVerificationError(idExists);
+      if (!idExists) {
+        postData({ ...values, date_revision: values.date_release });
+      }
     } else {
       putData({ ...values, date_revision: values.date_release });
     }
@@ -82,6 +107,7 @@ const ProductForm: FC<Props> = ({ isEditing = false }) => {
         values,
         errors,
         touched,
+        setFieldValue,
       }) => (
         <View style={styles.container}>
           <ScrollView>
@@ -100,6 +126,9 @@ const ProductForm: FC<Props> = ({ isEditing = false }) => {
               />
               {errors.id && touched.id && (
                 <Text style={styles.error}>{errors.id}</Text>
+              )}
+              {showIdVerificationError && (
+                <Text style={styles.error}>ID ya existe</Text>
               )}
             </View>
             <View style={styles.field}>
@@ -145,9 +174,15 @@ const ProductForm: FC<Props> = ({ isEditing = false }) => {
               <Text style={styles.label}>Fecha Liberación</Text>
               <TextInput
                 style={styles.input}
-                onChangeText={handleChange("date_release")}
+                onChangeText={(value) => {
+                  setFieldValue("date_release", value);
+                  if (isValid(new Date(value))) {
+                    const addYear = format(addYears(value, 1), "yyyy-MM-dd");
+                    setFieldValue("date_revision", addYear);
+                  }
+                }}
                 onBlur={handleBlur("date_release")}
-                placeholder="Fecha Liberación"
+                placeholder="yyyy-mm-dd"
                 value={values.date_release}
               />
               {errors.date_release && touched.date_release && (
@@ -159,7 +194,7 @@ const ProductForm: FC<Props> = ({ isEditing = false }) => {
               <TextInput
                 style={styles.input}
                 placeholder="Fecha Revisión"
-                value={values.date_release}
+                value={values.date_revision}
                 editable={false}
               />
             </View>

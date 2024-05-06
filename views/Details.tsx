@@ -1,11 +1,12 @@
-import React, { FC, useEffect, useState } from "react";
-import { Image, SafeAreaView, StyleSheet, Text, View } from "react-native";
+import React, { FC, useCallback, useEffect, useState } from "react";
+import { SafeAreaView, StyleSheet, View } from "react-native";
 import Button from "../components/Button";
 import BottomSheet from "../components/BottomSheet";
 import useDeleteProducts from "@/hooks/useDeleteProduct";
 import { useRouter } from "expo-router";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store";
+import ProductDetail from "@/components/ProductDetail";
 
 const Details: FC = () => {
   const product = useSelector((state: RootState) => state.product);
@@ -19,61 +20,27 @@ const Details: FC = () => {
     }
   }, [isSuccess]);
 
-  const handleDelete = () => {
+  const handleDelete = useCallback(() => {
     deleteData(product.id);
-  };
+  }, [product]);
 
   const toggleBottomSheet = () => {
     setIsVisible(!isVisible);
   };
 
-  const handleEditButton = () => {
+  const handleEditButton = useCallback(() => {
     router.push("/edit");
-  };
-
-  const date_release = new Date(product.date_release);
-  const date_revision = new Date(product.date_revision);
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
-      <View>
-        <BottomSheet
-          isVisible={isVisible}
-          onClose={toggleBottomSheet}
-          onDelete={handleDelete}
-          name={product?.name}
-        />
-        <View style={styles.header}>
-          <Text style={styles.title}>{`ID: ${product.id}`}</Text>
-          <Text style={styles.label}>Información extra</Text>
-        </View>
-
-        <View style={styles.row}>
-          <Text style={styles.label}>Nombre</Text>
-          <Text style={styles.text}>{product.name}</Text>
-        </View>
-        <View style={styles.row}>
-          <Text style={styles.label}>Descripción</Text>
-          <Text style={styles.text}>{product.description}</Text>
-        </View>
-        <View style={styles.row}>
-          <Text style={styles.label}>Logo</Text>
-          <Image
-            style={styles.image}
-            source={{
-              uri: product.logo,
-            }}
-          />
-        </View>
-        <View style={styles.row}>
-          <Text style={styles.label}>Fecha liberación</Text>
-          <Text style={styles.text}>{date_release.toLocaleDateString()}</Text>
-        </View>
-        <View style={styles.row}>
-          <Text style={styles.label}>Fecha revisión</Text>
-          <Text style={styles.text}>{date_revision.toLocaleDateString()}</Text>
-        </View>
-      </View>
+      <BottomSheet
+        isVisible={isVisible}
+        onClose={toggleBottomSheet}
+        onDelete={handleDelete}
+        name={product.name}
+      />
+      <ProductDetail {...product} />
       <View>
         <Button
           text="Editar"
@@ -94,12 +61,6 @@ const Details: FC = () => {
 };
 
 const styles = StyleSheet.create({
-  row: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginVertical: 5,
-  },
   container: {
     flex: 1,
     flexGrow: 1,
@@ -108,25 +69,6 @@ const styles = StyleSheet.create({
     padding: 10,
     justifyContent: "space-between",
     flexDirection: "column",
-  },
-  title: {
-    fontWeight: "bold",
-    fontSize: 20,
-  },
-  label: {
-    color: "gray",
-    fontSize: 14,
-  },
-  text: {
-    fontWeight: "bold",
-  },
-  image: {
-    width: 200,
-    height: 100,
-  },
-  header: {
-    marginBottom: 50,
-    marginTop: 20,
   },
 });
 

@@ -35,6 +35,7 @@ const BottomSheet = ({ isVisible, onClose, name, onDelete }: Props) => {
           text="Confirmar"
           backgroundColor="#F9E003"
           color="#20226C"
+          marginBottom={5}
           onPress={onDelete}
         />
         <Button

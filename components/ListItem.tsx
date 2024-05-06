@@ -2,7 +2,7 @@ import { Product } from "@/hooks/useGetFinancialProducts";
 import { AppDistpatch } from "@/store";
 import { setProduct } from "@/store/productSlice";
 import { useRouter } from "expo-router";
-import React, { FC } from "react";
+import React, { FC, memo, useCallback } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useDispatch } from "react-redux";
 
@@ -10,10 +10,10 @@ const ListItem: FC<Product> = (props) => {
   const router = useRouter();
   const dispatch = useDispatch<AppDistpatch>();
 
-  const handleOnPress = () => {
+  const handleOnPress = useCallback(() => {
     dispatch(setProduct(props));
     router.push(`/details`);
-  };
+  }, [props]);
 
   return (
     <TouchableOpacity onPress={handleOnPress} testID="list-item">
@@ -55,4 +55,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ListItem;
+export default memo(ListItem);
