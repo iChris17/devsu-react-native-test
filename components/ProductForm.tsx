@@ -64,7 +64,11 @@ const ProductForm: FC<Props> = ({ isEditing = false }) => {
   const [showIdVerificationError, setshowIdVerificationError] = useState(false);
 
   const initialValues: Product = isEditing
-    ? product
+    ? {
+        ...product,
+        date_release: product.date_release.slice(0, 10),
+        date_revision: product.date_revision.slice(0, 10),
+      }
     : {
         id: "",
         name: "",
@@ -86,10 +90,10 @@ const ProductForm: FC<Props> = ({ isEditing = false }) => {
       const idExists = await verificateId(values.id);
       setshowIdVerificationError(idExists);
       if (!idExists) {
-        postData({ ...values, date_revision: values.date_release });
+        postData(values);
       }
     } else {
-      putData({ ...values, date_revision: values.date_release });
+      putData(values);
     }
   };
 
