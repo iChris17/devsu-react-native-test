@@ -1,7 +1,7 @@
 import { Product } from "@/hooks/useGetFinancialProducts";
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState: Product = {
+export const initialState: Product = {
   date_release: "",
   date_revision: "",
   description: "",

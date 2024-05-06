@@ -18,6 +18,7 @@ const BottomSheet = ({ isVisible, onClose, name, onDelete }: Props) => {
       animationOut="slideOutDown"
       onBackdropPress={onClose}
       backdropOpacity={0.5}
+      testID="bottom-sheet"
       style={styles.container}
     >
       <View style={styles.content}>

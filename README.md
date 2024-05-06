@@ -8,7 +8,7 @@ Installation:
 
 To Run Test Suite:  
 
-`yarn test`  
+`yarn test --coverage`  
 
 To Start Server:
 

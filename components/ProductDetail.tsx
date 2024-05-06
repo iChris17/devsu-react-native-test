@@ -25,6 +25,7 @@ const ProductDetail: FC<Product> = (props) => {
         <Text style={styles.label}>Logo</Text>
         <Image
           style={styles.image}
+          testID="product-logo"
           source={{
             uri: props.logo,
           }}

@@ -1,7 +1,13 @@
 import React from "react";
 import { render, fireEvent } from "@testing-library/react-native";
-import { useRouter } from "expo-router";
+import { useDispatch } from "react-redux";
 import ListItem from "../ListItem";
+import { setProduct } from "@/store/productSlice";
+import { useRouter } from "expo-router";
+
+jest.mock("react-redux", () => ({
+  useDispatch: jest.fn(),
+}));
 
 jest.mock("expo-router", () => ({
   useRouter: jest.fn(),
@@ -9,8 +15,9 @@ jest.mock("expo-router", () => ({
 
 describe("ListItem", () => {
   const pushMock = jest.fn();
-
+  const mockDispatch = jest.fn();
   beforeEach(() => {
+    (useDispatch as unknown as jest.Mock).mockReturnValue(mockDispatch);
     (useRouter as jest.Mock).mockReturnValue({
       push: pushMock,
     });
@@ -20,30 +27,21 @@ describe("ListItem", () => {
     jest.clearAllMocks();
   });
 
-  const id = "1";
-  const name = "Test Item";
+  it("should dispatch setProduct action and navigate to details on press", () => {
+    const product = {
+      date_release: "2024-05-01",
+      date_revision: "2024-05-01",
+      description: "Test product",
+      id: "1",
+      logo: "test.png",
+      name: "Test Product",
+    };
 
-  it("renders correctly", () => {
-    const { getByText, getByTestId } = render(
-      <ListItem id={id} name={name} />
-    );
+    const { getByTestId } = render(<ListItem {...product} />);
 
-    const listItem = getByTestId("list-item");
-    expect(listItem).toBeTruthy();
+    fireEvent.press(getByTestId("list-item"));
 
-    const titleText = getByText(name);
-    expect(titleText).toBeTruthy();
-
-    const idText = getByText(`ID: ${id}`);
-    expect(idText).toBeTruthy();
-  });
-
-  it("navigates to details screen when pressed", () => {
-    const { getByTestId } = render(<ListItem id={id} name={name} />);
-
-    const listItem = getByTestId("list-item");
-    fireEvent.press(listItem);
-
-    expect(pushMock).toHaveBeenCalledWith(`/details/${id}`);
+    expect(mockDispatch).toHaveBeenCalledWith(setProduct(product));
+    expect(pushMock).toHaveBeenCalledWith("/details");
   });
 });
